@@ -1,20 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Movies from './components/Movies';
 import AddMovie from './components/AddMovie';
 import MovieService from './services/MovieService';
+import { fetchMovies } from './actions/movies';
 import './App.css';
 
 class App extends Component {
-  constructor() {
-    super()
-
-    this.state = {
-      movies: []
-    }
-  }
-
   componentDidMount() {
-    MovieService.fetchMovies().then(movies => this.setState({ movies }))
+    this.props.fetchMovies()
   }
 
   addMovie = movie => {
@@ -30,7 +24,7 @@ class App extends Component {
           {/* <Navbar /> */}
         </div>
         <div className="sidebar">
-           <Movies movies={this.state.movies}/> 
+           <Movies movies={this.props.movies}/> 
         </div>
         <div className="main-content">
           <AddMovie addMovie={this.addMovie} />
@@ -40,4 +34,11 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(
+  state => ({
+    movies: state.movies, 
+    currentMovie: state.currentMovie,
+    movieFormData: state.movieFormData
+  }),
+  { fetchMovies }
+)(App);

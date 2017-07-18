@@ -39,7 +39,7 @@ class AddMovie extends Component {
           placeholder="Movie Title"
         />
 
-        <label htmlFor="movie_release_year">Title</label>
+        <label htmlFor="movie_release_year">Release Year</label>
         <input 
           type="number"
           name="release_year"

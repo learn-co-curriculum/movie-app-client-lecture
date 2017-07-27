@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchMovies } from '../actions/movies';
+import { fetchMovies, deleteMovie } from '../actions/movies';
 
 class Movies extends Component {
 
@@ -10,7 +10,9 @@ class Movies extends Component {
 
   render() {
     const renderMovies = this.props.movies.map(movie => 
-      <p key={movie.id}>{movie.title}</p>
+      <p key={movie.id}>
+        {movie.title} <span onClick={() => this.props.deleteMovie(movie.id)}>X</span>
+      </p>
     )
 
     return (
@@ -25,5 +27,5 @@ export default connect(
   state => ({
     movies: state.movies, 
   }),
-  { fetchMovies }
+  { fetchMovies, deleteMovie }
 )(Movies);

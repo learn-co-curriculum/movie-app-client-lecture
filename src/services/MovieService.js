@@ -19,6 +19,17 @@ const MovieService = {
 
     return fetch(`${API_URL}/movies`, request)
       .then(response => response.json())
+  },
+
+  deleteMovie(movieId) {
+    const request = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    };
+
+    return fetch(`${API_URL}/movies/${movieId}`, request)
   }
 }
 

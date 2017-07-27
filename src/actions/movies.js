@@ -20,6 +20,13 @@ const successfullyAddedMovie = movie => {
   }
 }
 
+const succefullyDeletedMovie = movieId => {
+  return { 
+    type: "SUCCESSFUL_MOVIE_DELETION",
+    movieId
+  }
+}
+
 // Async Action Creators
 export const fetchMovies = () => {
   return dispatch => {
@@ -42,6 +49,20 @@ export const addMovie = movie => {
       .then(movie => {
         dispatch(finishFetchRequest());
         dispatch(successfullyAddedMovie(movie));
+      })
+      .catch(error => console.log(error));
+  }
+}
+
+export const deleteMovie = movieId => { 
+  return dispatch => {
+    dispatch(makeFetchRequest());
+    MovieService.deleteMovie(movieId)
+      .then(response => {
+        if (response.ok) {
+          dispatch(finishFetchRequest());
+          dispatch(succefullyDeletedMovie(movieId));
+        }
       })
       .catch(error => console.log(error));
   }

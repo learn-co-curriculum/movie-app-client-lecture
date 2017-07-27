@@ -4,6 +4,9 @@ export default (state = [], action) => {
     case "SUCCESSFUL_MOVIES_FETCH":
       return action.movies
 
+    case "SUCCESSFULLY_ADDED_MOVIE":
+      return state.concat(action.movie)
+
     default: 
       return state
   }

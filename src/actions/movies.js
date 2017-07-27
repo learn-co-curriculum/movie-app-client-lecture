@@ -9,7 +9,14 @@ import {
 const successFullMoviesFetch = movies => {
   return {
     type: 'SUCCESSFUL_MOVIES_FETCH',
-    movies: movies
+    movies
+  }
+}
+
+const successfullyAddedMovie = movie => {
+  return {
+    type: 'SUCCESSFULLY_ADDED_MOVIE',
+    movie
   }
 }
 
@@ -27,3 +34,17 @@ export const fetchMovies = () => {
       })
   }
 }
+
+export const addMovie = movie => { 
+  return dispatch => {
+    dispatch(makeFetchRequest());
+    MovieService.createMovie(movie)
+      .then(movie => {
+        dispatch(finishFetchRequest());
+        dispatch(successfullyAddedMovie(movie));
+      })
+      .catch(error => console.log(error));
+  }
+}
+
+

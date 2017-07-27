@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { addMovie } from '../actions/movies';
 
 class AddMovie extends Component {
   constructor(props) {
@@ -29,29 +31,40 @@ class AddMovie extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleOnSubmit}>
-        <label htmlFor="movie_title">Title</label>
-        <input 
-          type="text"
-          name="title"
-          value={this.state.title} 
-          onChange={this.handleOnChange}
-          placeholder="Movie Title"
-        />
+      <div className="uk-form-file">
+        <form onSubmit={this.handleOnSubmit}>
+          <fieldset className="uk-fieldset">
+            <div className="uk-margin">
+              <label htmlFor="movie_title">Title</label>
+              <input 
+                type="text"
+                name="title"
+                className="uk-input"
+                value={this.state.title} 
+                onChange={this.handleOnChange}
+                placeholder="Movie Title"
+              />
+            </div>
+          
+            <div className="uk-margin">
+              <label htmlFor="movie_release_year">Release Year</label>
+              <input 
+                type="number"
+                name="release_year"
+                className="uk-input"
+                value={this.state.release_year} 
+                onChange={this.handleOnChange}
+                placeholder="Movie Release Year"
+              />
+            </div>
+            
 
-        <label htmlFor="movie_release_year">Release Year</label>
-        <input 
-          type="number"
-          name="release_year"
-          value={this.state.release_year} 
-          onChange={this.handleOnChange}
-          placeholder="Movie Release Year"
-        />
-
-        <button>Add Movie</button>
-      </form>
+            <button className="uk-button">Add Movie</button>
+          </fieldset>
+        </form>
+      </div>
     )
   }
 }
 
-export default AddMovie;
+export default connect(null, { addMovie })(AddMovie);
